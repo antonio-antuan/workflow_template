@@ -1,0 +1,65 @@
+name: My test workflow
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select the environment to deploy.
+        required: true
+        options:
+          - dev
+          - staging
+          - prod
+          - research
+          - test
+          - local
+
+jobs:
+  
+  scribe-report-test:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+        
+      - uses: actions/checkout@v3
+
+      - name: source sbom
+        id: source_sbom
+        uses: scribe-security/action-bom@dev
+        
+        with:
+          type: git       
+          target: "."
+          #verbose: 2
+          force: true
+          scribe-enable: true
+          scribe-url: ${{ vars.SCRIBE_URL }}
+          scribe-login-url: ${{ vars.SCRIBE_LOGIN_URL }}
+          scribe-audience: ${{ vars.SCRIBE_AUDIENCE }}
+          scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
+          scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
+          product-key: my-test-project
+          level: trace
+
+      - name: create file and Docker
+        run: | 
+          echo `date` > tmp.txt
+          echo "FROM apache/airflow:slim-2.6.1-python3.10" > Dockerfile
+          echo "COPY . ." >> Dockerfile
+          docker build -t my-test-image:latest .
+    
+      - name: image sbom
+        id: image_sbom
+        uses: scribe-security/action-bom@dev
+        with:
+          type: docker            
+          target: busybox
+          verbose: 2
+          force: true
+          scribe-enable: true
+          scribe-url: ${{ vars.SCRIBE_URL }}
+          scribe-login-url: ${{ vars.SCRIBE_LOGIN_URL }}
+          scribe-audience: ${{ vars.SCRIBE_AUDIENCE }}
+          scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
+          scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
+          product-key: my-test-project
