@@ -70,25 +70,25 @@ jobs:
           product-key: my-test-project
           product-version: 3
 
-      - name: slsa
-        uses: scribe-security/action-bom@dev
-        with:
-          type: docker         
-          format: attest-slsa
-          target: busybox
-          verbose: 2
-          force: true
-          scribe-enable: true
-          attest-default: x509
-          ca: env://SCRIBE_CA
-          cert: env://SIGNER_CERT
-          key: env://SIGNER_KEY
-          scribe-url: ${{ vars.SCRIBE_URL }}
-          scribe-login-url: ${{ vars.SCRIBE_LOGIN_URL }}
-          scribe-audience: ${{ vars.SCRIBE_AUDIENCE }}
-          scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
-          scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
-          product-key: my-test-project
-          product-version: 3
-        
+      #- name: slsa
+      #  uses: scribe-security/action-bom@dev
+      #  with:
+      #    type: docker         
+      #    format: attest-slsa
+      #    target: busybox
+      #    verbose: 2
+      #    force: true
+      #    scribe-enable: true
+      #    attest-default: x509
+      #    ca: env://SCRIBE_CA
+      #    cert: env://SIGNER_CERT
+      #    key: env://SIGNER_KEY
+      #    scribe-url: ${{ vars.SCRIBE_URL }}
+      #    scribe-login-url: ${{ vars.SCRIBE_LOGIN_URL }}
+      #    scribe-audience: ${{ vars.SCRIBE_AUDIENCE }}
+      #    scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
+      #    scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
+      #    product-key: my-test-project
+      #    product-version: 3
+    
 
