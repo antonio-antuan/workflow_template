@@ -43,7 +43,7 @@ jobs:
           scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
           scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
           product-key: my-test-project
-          product-version: 2
+          product-version: 3
           level: trace
 
       - name: create file and Docker
@@ -68,7 +68,7 @@ jobs:
           scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
           scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
           product-key: my-test-project
-          product-version: 2
+          product-version: 3
 
       - name: slsa
         uses: scribe-security/action-bom@dev
@@ -89,6 +89,6 @@ jobs:
           scribe-client-id: ${{ vars.SCRIBE_CLIENT_ID }}
           scribe-client-secret: ${{ vars.SCRIBE_CLIENT_SECRET }}
           product-key: my-test-project
-          product-version: 2
+          product-version: 3
         
 
